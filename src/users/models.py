@@ -3,10 +3,11 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from core.utils import get_upload_to_path
+
 MANAGER_LEVEL = (
 	(0, 'PROJECT'),
 	(1, 'SENIOR'),
-	(2, 'EXECUTIVE'),
 )
 
 class AppUser(models.Model):
@@ -17,6 +18,7 @@ class AppUser(models.Model):
 	active = models.BooleanField(default=True)
 	email = models.EmailField(max_length=256)
 	employed_since = models.DateField()
+	picture = models.ImageField(null=True)
 	
 	@property
 	def experience(self):
@@ -44,6 +46,8 @@ class Tester(AppUser):
 	automation = models.BooleanField(default=False)
 
 class ProjectManager(AppUser):
-	reports_to = models.ForeignKey('self',null=True,blank=True)
+	reports_to = models.ForeignKey('users.Executive')
 	designation = models.IntegerField(choices=MANAGER_LEVEL)
 
+class Executive(AppUser):
+	designation = models.IntegerField(choices=MANAGER_LEVEL)
