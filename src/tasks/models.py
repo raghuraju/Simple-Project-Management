@@ -23,6 +23,9 @@ class Task(models.Model):
 	@property
 	def ice_box(self):
 		return self.status == 0
+	
+	def __unicode__(self):
+		return "{0}, {1}, {2}".format(self.name, self.epic, self.epic.project)
 		
 
 class Epic(models.Model):
@@ -33,7 +36,14 @@ class Epic(models.Model):
 	updated_on = models.DateTimeField(auto_now=True)
 	project = models.ForeignKey('tasks.Project')
 	
+	def __unicode__(self):
+		return "{0}, {1}".format(self.name, self.project)
+
 
 class Project(models.Model):
 	name = models.CharField(max_length=30)
 	team = models.ForeignKey('users.Team',blank=True,null=True)
+	
+	def __unicode__(self):
+		return self.name
+
