@@ -31,7 +31,7 @@ class AppUser(models.Model):
 
 class Team(models.Model):
 	name = models.CharField(max_length=30)
-	incharge = models.ForeignKey('users.Manager')
+	incharge = models.ForeignKey('users.ProjectManager')
 
 class Developer(AppUser):
 	team = models.ForeignKey(Team)
@@ -43,7 +43,7 @@ class Tester(AppUser):
 	team = models.ForeignKey(Team)
 	automation = models.BooleanField(default=False)
 
-class Manager(AppUser):
+class ProjectManager(AppUser):
 	reports_to = models.ForeignKey('self',null=True,blank=True)
 	designation = models.IntegerField(choices=MANAGER_LEVEL)
 
