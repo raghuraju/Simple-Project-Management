@@ -36,4 +36,4 @@ class Epic(models.Model):
 
 class Project(models.Model):
 	name = models.CharField(max_length=30)
-	team = models.ForeignKey('users.Team')
+	team = models.ForeignKey('users.Team',blank=True,null=True)
