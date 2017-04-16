@@ -68,7 +68,7 @@ class Tester(AppUser):
 
 
 class ProjectManager(AppUser):
-	reports_to = models.ForeignKey('users.Executive')
+	reports_to = models.ForeignKey('users.Executive', null=True, blank=True)
 	designation = models.ForeignKey(ManagerDesignation)
 
 	class Meta:
