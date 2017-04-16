@@ -12,12 +12,19 @@ class Gender(models.Model):
 	def __unicode__(self):
 		return self.name
 
+	class Meta:
+		verbose_name_plural='Gender'
+
 
 class ManagerDesignation(models.Model):
 	name = models.CharField(max_length=10, blank=False, null=False)
 
 	def __unicode__(self):
 		return self.name
+
+	class Meta:
+		verbose_name='Designation'
+		verbose_name_plural='Designations'
 
 
 class AppUser(models.Model):
@@ -61,9 +68,12 @@ class Tester(AppUser):
 
 
 class ProjectManager(AppUser):
-	reports_to = models.ForeignKey('users.Executive')
+	reports_to = models.ForeignKey('users.Executive',null=True,blank=True)
 	designation = models.ForeignKey(ManagerDesignation)
 
+	class Meta:
+		verbose_name='Manager'
+		verbose_name_plural='Managers'
 
 class Executive(AppUser):
 	designation = models.ForeignKey(ManagerDesignation)
