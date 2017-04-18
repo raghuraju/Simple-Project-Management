@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
 from core.utils import get_upload_to_path
 
@@ -28,14 +29,11 @@ class ManagerDesignation(models.Model):
 
 
 class AppUser(models.Model):
-	first_name = models.CharField(max_length=40)
-	last_name = models.CharField(max_length=40)
 	date_of_birth = models.DateField()
-	joined_on = models.DateField()
-	email = models.EmailField(max_length=256)
 	employed_since = models.DateField()
 	picture = models.ImageField(null=True)
 	gender = models.ForeignKey(Gender)
+	user = models.OneToOneField(User,null=True)
 
 	@property
 	def experience(self):
